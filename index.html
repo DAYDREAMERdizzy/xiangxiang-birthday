@@ -595,6 +595,37 @@
       box-shadow: 0 0 0 4px rgba(255, 95, 145, 0.12);
     }
 
+    .task-input-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      min-height: 48px;
+      border: 1px solid rgba(255, 95, 145, 0.24);
+      border-radius: 16px;
+      background: #fff7fa;
+      overflow: hidden;
+    }
+
+    .task-prefix {
+      padding: 0 0 0 14px;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .task-input-row .task-input {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .task-input-row:focus-within {
+      border-color: rgba(255, 95, 145, 0.72);
+      box-shadow: 0 0 0 4px rgba(255, 95, 145, 0.12);
+    }
+
     .task-hint {
       margin: 9px 2px 0;
       color: var(--muted);
@@ -885,9 +916,10 @@
         task: {
           title: "任务五",
           question: "还记得张钟艺的农历生日吗？",
-          hint: "提示：请按“农历YYYY年M月D日”的格式输入。",
+          hint: "提示：前面的“农历”已经帮你填好啦，只需要输入 8 位数字日期。",
           type: "input",
-          answer: "农历2003年4月24日",
+          prefix: "农历",
+          answer: "20030424",
           error: "格式或日期不太对哦，按提示再输入一次。"
         }
       }
@@ -966,11 +998,22 @@
 
       return new Promise((resolve) => {
         if (task.type === "input") {
-          taskForm.innerHTML = `
-            <input class="task-input" id="taskAnswer" type="text" inputmode="numeric" autocomplete="off" placeholder="请输入 8 位数字">
-            <p class="task-hint">${task.hint}</p>
-            <button class="modal-close" id="submitTask" type="button">验证答案</button>
-          `;
+          if (task.prefix) {
+            taskForm.innerHTML = `
+              <div class="task-input-row">
+                <span class="task-prefix">${task.prefix}</span>
+                <input class="task-input" id="taskAnswer" type="text" inputmode="numeric" autocomplete="off" placeholder="请输入 8 位数字">
+              </div>
+              <p class="task-hint">${task.hint}</p>
+              <button class="modal-close" id="submitTask" type="button">验证答案</button>
+            `;
+          } else {
+            taskForm.innerHTML = `
+              <input class="task-input" id="taskAnswer" type="text" inputmode="numeric" autocomplete="off" placeholder="请输入 8 位数字">
+              <p class="task-hint">${task.hint}</p>
+              <button class="modal-close" id="submitTask" type="button">验证答案</button>
+            `;
+          }
           const input = taskForm.querySelector("#taskAnswer");
           const submit = taskForm.querySelector("#submitTask");
           const validate = () => {
