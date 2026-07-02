@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>香香宝贝生日快乐</title>
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --muted: #73737a;
+      --rose: #ff5f91;
+      --rose-deep: #ff3f7e;
+      --rose-soft: #fff0f6;
+      --pink: #ffd7e8;
+      --candy-blue: #78c9ff;
+      --candy-purple: #b989ff;
+      --cream: #fffafc;
+      --mint: #bff3df;
+      --gold: #ffd77a;
+      --line: rgba(255, 95, 145, 0.18);
+      --shadow: 0 24px 70px rgba(255, 95, 145, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: #fff4f8;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(255, 214, 232, 0.98) 0 16%, transparent 17%),
+        radial-gradient(circle at 90% 11%, rgba(255, 236, 245, 0.98) 0 18%, transparent 19%),
+        radial-gradient(circle at 12% 82%, rgba(255, 215, 122, 0.2) 0 14%, transparent 15%),
+        linear-gradient(180deg, #fff 0%, #fff7fb 44%, #ffedf5 100%);
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      position: relative;
+      width: min(100%, 430px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 18px max(30px, env(safe-area-inset-bottom));
+    }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .sparkles span {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--rose);
+      opacity: 0.35;
+      animation: drift 7s ease-in-out infinite;
+    }
+
+    .sparkles span:nth-child(2n) {
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      opacity: 0.32;
+    }
+
+    .sparkles span:nth-child(3n) {
+      background: var(--mint);
+      opacity: 0.34;
+    }
+
+    .sparkles span:nth-child(4n) {
+      background: var(--candy-blue);
+      border-radius: 3px;
+      rotate: 20deg;
+    }
+
+    .sparkles span:nth-child(1) { left: 8%; top: 10%; animation-delay: 0s; }
+    .sparkles span:nth-child(2) { left: 25%; top: 5%; animation-delay: 1s; }
+    .sparkles span:nth-child(3) { left: 84%; top: 9%; animation-delay: 0.3s; }
+    .sparkles span:nth-child(4) { left: 92%; top: 25%; animation-delay: 1.5s; }
+    .sparkles span:nth-child(5) { left: 7%; top: 68%; animation-delay: 0.6s; }
+    .sparkles span:nth-child(6) { left: 86%; top: 73%; animation-delay: 1.9s; }
+    .sparkles span:nth-child(7) { left: 36%; top: 91%; animation-delay: 0.2s; }
+    .sparkles span:nth-child(8) { left: 68%; top: 88%; animation-delay: 1.2s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(0, 16px, 0) scale(1.14); }
+    }
+
+    header,
+    main,
+    .portrait-card,
+    .memory-strip,
+    .cute-row {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      padding-top: 8px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0 14px;
+      border: 1px solid rgba(29, 29, 31, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(18px);
+    }
+
+    .cake {
+      display: block;
+      width: 82px;
+      height: 74px;
+      margin: 18px auto 12px;
+      filter: drop-shadow(0 16px 24px rgba(255, 95, 145, 0.2));
+    }
+
+    h1 {
+      margin: 0 auto;
+      max-width: 9.5em;
+      font-size: clamp(33px, 9.8vw, 47px);
+      font-weight: 850;
+      line-height: 1.08;
+      letter-spacing: 0;
+      color: var(--ink);
+      text-wrap: balance;
+      text-align: center;
+    }
+
+    .headline-main,
+    .headline-accent {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .headline-accent {
+      margin-top: 4px;
+      color: var(--rose);
+      transform: translateX(-0.04em);
+    }
+
+    .subtitle {
+      margin: 15px auto 0;
+      max-width: 310px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .portrait-card {
+      width: min(82vw, 308px);
+      margin: 22px auto 0;
+      border: 8px solid rgba(255, 255, 255, 0.88);
+      border-radius: 34px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: 50% 12%;
+    }
+
+    .cute-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 13px;
+      color: var(--rose);
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .memory-strip {
+      margin: 20px auto 0;
+    }
+
+    .memory-title {
+      margin: 0 0 10px;
+      text-align: center;
+      color: var(--rose);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .memory-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .memory-card {
+      position: relative;
+      overflow: hidden;
+      border: 7px solid rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 18px 44px rgba(255, 95, 145, 0.18);
+      transform: rotate(-1deg);
+    }
+
+    .memory-card:nth-child(2) {
+      transform: rotate(1deg);
+    }
+
+    .memory-card::after {
+      content: "♡";
+      position: absolute;
+      right: 12px;
+      bottom: 8px;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      text-shadow: 0 2px 10px rgba(255, 63, 126, 0.55);
+    }
+
+    .memory-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .doodle-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 13px auto 0;
+      color: rgba(29, 29, 31, 0.68);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .doodle-note span {
+      color: var(--candy-purple);
+      font-size: 17px;
+    }
+
+    main {
+      margin-top: 24px;
+    }
+
+    .panel {
+      padding: 18px 16px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px);
+    }
+
+    .wheel-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(82vw, 326px);
+      aspect-ratio: 1;
+      margin: 4px auto 18px;
+    }
+
+    .pointer {
+      position: absolute;
+      top: -2px;
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+      background: linear-gradient(180deg, #ff87af, var(--rose-deep));
+      filter: drop-shadow(0 8px 12px rgba(255, 63, 126, 0.26));
+    }
+
+    .wheel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff72a4 0deg 72deg,
+        #ffd87e 72deg 144deg,
+        #9ee8cb 144deg 216deg,
+        #cbb6ff 216deg 288deg,
+        #ffb5cf 288deg 360deg
+      );
+      box-shadow:
+        inset 0 0 0 1px rgba(29, 29, 31, 0.06),
+        inset 0 0 0 10px rgba(255, 255, 255, 0.34),
+        0 22px 42px rgba(255, 95, 145, 0.18);
+      transition: transform 4.4s cubic-bezier(0.13, 0.74, 0.08, 1);
+      will-change: transform;
+    }
+
+    .wheel::after {
+      content: "";
+      position: absolute;
+      inset: 28%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow:
+        inset 0 0 0 1px rgba(29, 29, 31, 0.08),
+        0 10px 28px rgba(29, 29, 31, 0.08);
+    }
+
+    .wheel-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      width: 92px;
+      margin-left: -46px;
+      margin-top: -14px;
+      transform-origin: 46px 14px;
+      color: rgba(29, 29, 31, 0.84);
+      font-size: 17px;
+      font-weight: 850;
+      line-height: 1;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.48);
+    }
+
+    .wheel-label span {
+      display: block;
+      transform: translateY(-106px);
+      white-space: nowrap;
+    }
+
+    .center-button {
+      position: absolute;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      width: 104px;
+      height: 104px;
+      border: 0;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ff7fac, var(--rose-deep));
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(255, 63, 126, 0.34);
+      font-size: 18px;
+      font-weight: 850;
+      line-height: 1.16;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .center-button:active {
+      transform: scale(0.98);
+    }
+
+    .center-button:disabled {
+      opacity: 0.72;
+      cursor: default;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 0 14px;
+    }
+
+    .prize-chip {
+      min-width: 0;
+      min-height: 56px;
+      padding: 10px 7px;
+      border: 1px solid rgba(29, 29, 31, 0.08);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--ink);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 850;
+      line-height: 1.15;
+    }
+
+    .prize-chip span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .prize-chip.active {
+      border-color: transparent;
+      background: var(--ink);
+      color: #fff;
+      box-shadow: 0 14px 24px rgba(29, 29, 31, 0.18);
+    }
+
+    .prize-chip.active span {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .prize-chip.used {
+      opacity: 0.46;
+    }
+
+    .result {
+      min-height: 94px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fff, #fff7fa);
+      text-align: center;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .result strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--rose);
+      font-size: 25px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .result span {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      margin: 16px auto 0;
+      max-width: 310px;
+      text-align: center;
+      color: rgba(110, 110, 115, 0.82);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .admin-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .reset-link {
+      border: 0;
+      background: transparent;
+      color: rgba(110, 110, 115, 0.72);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(29, 29, 31, 0.24);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: min(100%, 344px);
+      padding: 26px 22px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 28px 80px rgba(29, 29, 31, 0.22);
+      text-align: center;
+      transform: translateY(14px) scale(0.96);
+      transition: transform 0.24s ease;
+    }
+
+    .modal-backdrop.open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-kicker {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .modal-title {
+      margin: 8px 0 10px;
+      color: var(--rose);
+      font-size: 30px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .modal-prize {
+      margin: 0;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 750;
+      line-height: 1.45;
+    }
+
+    .modal-note {
+      margin: 14px 0 0;
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff7fa;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.65;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    .modal-close,
+    .choice-button,
+    .secondary-close {
+      cursor: pointer;
+    }
+
+    .modal-close {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .task-form {
+      margin-top: 18px;
+      text-align: left;
+    }
+
+    .task-input {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(255, 95, 145, 0.24);
+      border-radius: 16px;
+      padding: 0 14px;
+      background: #fff7fa;
+      color: var(--ink);
+      font-size: 17px;
+      outline: none;
+    }
+
+    .task-input:focus {
+      border-color: rgba(255, 95, 145, 0.72);
+      box-shadow: 0 0 0 4px rgba(255, 95, 145, 0.12);
+    }
+
+    .task-hint {
+      margin: 9px 2px 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .choice-button {
+      min-height: 48px;
+      border: 1px solid rgba(255, 95, 145, 0.24);
+      border-radius: 16px;
+      background: #fff7fa;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .task-error {
+      min-height: 20px;
+      margin: 10px 2px 0;
+      color: #d93668;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .reset-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .secondary-close {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(29, 29, 31, 0.1);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 360px) {
+      .page {
+        padding-inline: 14px;
+      }
+
+      h1 {
+        font-size: 33px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .wheel-label span {
+        transform: translateY(-92px);
+      }
+
+      .center-button {
+        width: 92px;
+        height: 92px;
+        font-size: 17px;
+      }
+
+      .prize-chip {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="page">
+    <header>
+      <div class="eyebrow">Birthday Lucky Draw</div>
+      <svg class="cake" viewBox="0 0 160 140" role="img" aria-label="生日蛋糕">
+        <defs>
+          <linearGradient id="cakeBody" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#ffe8f0"/>
+            <stop offset="100%" stop-color="#ff7ba6"/>
+          </linearGradient>
+        </defs>
+        <path d="M80 15c8 12 16 19 16 29 0 9-7 16-16 16s-16-7-16-16c0-10 8-17 16-29z" fill="#ffd77a"/>
+        <path d="M77 48h6v25h-6z" fill="#ff7ba6"/>
+        <rect x="38" y="66" width="84" height="28" rx="14" fill="#fff"/>
+        <path d="M38 80c9 9 18 0 27 8 10 8 18-8 29 0 10 8 19-2 28-8v37H38z" fill="url(#cakeBody)"/>
+        <rect x="28" y="107" width="104" height="18" rx="9" fill="#9ee8cb"/>
+        <circle cx="58" cy="88" r="5" fill="#ff5f91"/>
+        <circle cx="83" cy="86" r="5" fill="#ffd77a"/>
+        <circle cx="105" cy="90" r="5" fill="#9f8cff"/>
+      </svg>
+      <h1>
+        <span class="headline-main">祝香香宝贝</span>
+        <span class="headline-accent">23岁生日快乐！</span>
+      </h1>
+      <p class="subtitle">生日也是我陪宝贝慢慢长大的见证</p>
+    </header>
+
+    <section class="portrait-card" aria-label="香香宝贝插画">
+      <img src="xiangxiang-portrait.png" alt="香香宝贝的可爱插画">
+    </section>
+    <div class="cute-row" aria-hidden="true">♡ ♡ ♡</div>
+
+    <section class="memory-strip" aria-label="我们在一起的插图">
+      <p class="memory-title">和宝贝在一起的可爱瞬间</p>
+      <div class="memory-grid">
+        <figure class="memory-card">
+          <img src="memory-01.png" alt="我们在一起的手绘合照插图一">
+        </figure>
+        <figure class="memory-card">
+          <img src="memory-02.png" alt="我们在一起的手绘合照插图二">
+        </figure>
+      </div>
+      <div class="doodle-note"><span>✦</span>把每一天都画成喜欢你的样子<span>✦</span></div>
+    </section>
+
+    <main>
+      <section class="panel" aria-label="生日抽奖转盘">
+        <div class="wheel-wrap">
+          <div class="pointer" aria-hidden="true"></div>
+          <div class="wheel" id="wheel" aria-hidden="true">
+            <div class="wheel-label" style="transform: rotate(36deg);"><span>一等奖</span></div>
+            <div class="wheel-label" style="transform: rotate(108deg);"><span>二等奖</span></div>
+            <div class="wheel-label" style="transform: rotate(180deg);"><span>三等奖</span></div>
+            <div class="wheel-label" style="transform: rotate(252deg);"><span>四等奖</span></div>
+            <div class="wheel-label" style="transform: rotate(324deg);"><span>安慰奖</span></div>
+          </div>
+          <button class="center-button" id="spinButton" type="button">开始<br>抽奖</button>
+        </div>
+
+        <div class="status-row" id="prizes" aria-label="奖品状态">
+          <div class="prize-chip" data-prize-id="first">一等奖<span>待抽取</span></div>
+          <div class="prize-chip" data-prize-id="second">二等奖<span>待抽取</span></div>
+          <div class="prize-chip" data-prize-id="third">三等奖<span>待抽取</span></div>
+          <div class="prize-chip" data-prize-id="fourth">四等奖<span>待抽取</span></div>
+          <div class="prize-chip" data-prize-id="comfort">安慰奖<span>待抽取</span></div>
+        </div>
+
+        <div class="result" id="result" aria-live="polite">
+          <strong>今日限定奖池</strong>
+          <span>每次抽奖前都要先完成一个小任务，答对后才能转动转盘。</span>
+        </div>
+      </section>
+
+      <p class="footer-note">每个奖项各有一次机会，抽中过的奖项不会再次出现。</p>
+
+      <div class="admin-row">
+        <button class="reset-link" id="openReset" type="button">管理员重置</button>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="prizeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-card">
+      <div class="modal-kicker">宝贝抽中了</div>
+      <div class="modal-title" id="modalTitle">惊喜揭晓</div>
+      <p class="modal-prize" id="modalPrize">生日惊喜即将揭晓</p>
+      <p class="modal-note" id="modalNote"></p>
+      <button class="modal-close" id="modalClose" type="button">收下这个惊喜</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskTitle" hidden>
+    <div class="modal-card">
+      <div class="modal-kicker">抽奖前的小任务</div>
+      <div class="modal-title" id="taskTitle">任务</div>
+      <p class="modal-prize" id="taskQuestion">准备好了吗？</p>
+      <div class="task-form" id="taskForm"></div>
+      <div class="task-error" id="taskError" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetTitle" hidden>
+    <div class="modal-card">
+      <div class="modal-kicker">Admin</div>
+      <div class="modal-title" id="resetTitle">重置转盘</div>
+      <p class="modal-prize">请输入管理员密码，验证后会清空已抽中奖项。</p>
+      <div class="task-form">
+        <input class="task-input" id="adminPassword" type="password" inputmode="numeric" placeholder="输入管理员密码">
+      </div>
+      <div class="task-error" id="resetError" aria-live="polite"></div>
+      <div class="reset-actions">
+        <button class="modal-close" id="confirmReset" type="button">确认重置</button>
+        <button class="secondary-close" id="cancelReset" type="button">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const storageKey = "xiangxiang-birthday-drawn-prizes-v4";
+    const adminPassword = "20230402";
+    const wheel = document.querySelector("#wheel");
+    const button = document.querySelector("#spinButton");
+    const result = document.querySelector("#result");
+    const chips = [...document.querySelectorAll(".prize-chip")];
+    const prizeModal = document.querySelector("#prizeModal");
+    const modalTitle = document.querySelector("#modalTitle");
+    const modalPrize = document.querySelector("#modalPrize");
+    const modalNote = document.querySelector("#modalNote");
+    const modalClose = document.querySelector("#modalClose");
+    const taskModal = document.querySelector("#taskModal");
+    const taskTitle = document.querySelector("#taskTitle");
+    const taskQuestion = document.querySelector("#taskQuestion");
+    const taskForm = document.querySelector("#taskForm");
+    const taskError = document.querySelector("#taskError");
+    const resetModal = document.querySelector("#resetModal");
+    const openReset = document.querySelector("#openReset");
+    const adminPasswordInput = document.querySelector("#adminPassword");
+    const confirmReset = document.querySelector("#confirmReset");
+    const cancelReset = document.querySelector("#cancelReset");
+    const resetError = document.querySelector("#resetError");
+    const prizes = [
+      {
+        id: "first",
+        label: "一等奖",
+        message: "蓝牙耳机 Apple AirPods 4",
+        note: "距离我达成给你集齐Apple全家桶又进了一步咯，你总说能用就行，现在送一幅专属于你的Apple蓝牙耳机，提升音乐音质哈哈哈。你现在很热爱音乐，也很喜欢听歌，以后还会看更多演唱会，现在就让咱们将最好的音乐同时也留在耳机中，放心吧，你现在的耳机可以给我用了哈哈哈哈，不会浪费。",
+        center: 36,
+        task: {
+          title: "任务一",
+          question: "我们是什么时候在一起的呢？",
+          hint: "提示：输入我们在一起那天的 8 位数字日期，例如年月日连在一起。",
+          type: "input",
+          answer: "20230402",
+          error: "答案还差一点点，再想想我们的纪念日。"
+        }
+      },
+      {
+        id: "second",
+        label: "二等奖",
+        message: "噜噜",
+        note: "你总说这个噜噜就是我，现在我送一个噜噜给你。不开心的时候，他可以给你一个及时的抱抱；或者有时候我不小心惹你生气的时候，揍他也是揍我，我跟他绑定了，我会痛的。但是最重要的是这样我就可以随时陪着你咯宝贝！",
+        center: 108,
+        task: {
+          title: "任务二",
+          question: "香香以后会越来越好的，同意吗？",
+          type: "choice",
+          answer: "同意"
+        }
+      },
+      {
+        id: "third",
+        label: "三等奖",
+        message: "3CE兑换券",
+        note: "这个奖品呢就是宝贝许下的生日礼物愿望，那当然是必须满足啦，只是宝贝还没有挑好呢，这样吧送你一张兑换券，等待你做好决定就来找我兑奖，随时有效！",
+        center: 180,
+        task: {
+          title: "任务三",
+          question: "郑思乡最爱最爱张钟艺了，对吗？",
+          type: "choice",
+          answer: "同意"
+        }
+      },
+      {
+        id: "fourth",
+        label: "四等奖",
+        message: "王者荣耀皮肤一套，随时可以兑现",
+        note: "感觉你最近很喜欢打游戏也，每次听到你给我说羡慕别人好看的皮肤，我猜你也一定想要，所以呢送你一张皮肤兑换券，要是碰到了你想要的皮肤，直接兑换，不限金额。",
+        center: 252,
+        task: {
+          title: "任务四",
+          question: "你以后一定会活成自己想要的人生，同意吗？",
+          type: "choice",
+          answer: "同意"
+        }
+      },
+      {
+        id: "comfort",
+        label: "安慰奖",
+        message: "奖励抱抱一下",
+        note: "抱抱真的很重要，它不仅能安慰人，还能给人力量，希望这个抱抱能带给你前进的力量！",
+        center: 324,
+        task: {
+          title: "任务五",
+          question: "还记得张钟艺的农历生日吗？",
+          hint: "提示：请按“农历YYYY年M月D日”的格式输入。",
+          type: "input",
+          answer: "农历2003年4月24日",
+          error: "格式或日期不太对哦，按提示再输入一次。"
+        }
+      }
+    ];
+
+    let currentRotation = 0;
+    let spinning = false;
+    let drawnPrizeIds = readDrawnPrizeIds();
+
+    function readDrawnPrizeIds() {
+      try {
+        const value = window.localStorage.getItem(storageKey);
+        return value ? JSON.parse(value) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveDrawnPrizeIds() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(drawnPrizeIds));
+      } catch {
+        /* iOS private mode can block localStorage; the in-memory list still works. */
+      }
+    }
+
+    function availablePrizes() {
+      return prizes.filter((prize) => !drawnPrizeIds.includes(prize.id));
+    }
+
+    function openModal(modal) {
+      modal.hidden = false;
+      requestAnimationFrame(() => modal.classList.add("open"));
+    }
+
+    function closeModal(modal) {
+      modal.classList.remove("open");
+      window.setTimeout(() => {
+        modal.hidden = true;
+      }, 240);
+    }
+
+    function updatePrizeStatus(activeId) {
+      chips.forEach((chip) => {
+        const isUsed = drawnPrizeIds.includes(chip.dataset.prizeId);
+        const isActive = chip.dataset.prizeId === activeId;
+        chip.classList.toggle("used", isUsed && !isActive);
+        chip.classList.toggle("active", isActive);
+        chip.querySelector("span").textContent = isUsed ? "已抽中" : "待抽取";
+      });
+    }
+
+    function updateButtonState() {
+      if (availablePrizes().length === 0) {
+        button.disabled = true;
+        button.innerHTML = "全部<br>抽完";
+        return;
+      }
+
+      button.disabled = false;
+      button.innerHTML = drawnPrizeIds.length === 0 ? "开始<br>抽奖" : "继续<br>抽奖";
+    }
+
+    function showPrizeModal(prize) {
+      modalTitle.textContent = prize.label;
+      modalPrize.textContent = prize.message;
+      modalNote.textContent = prize.note || "";
+      openModal(prizeModal);
+    }
+
+    function askTask(task) {
+      taskTitle.textContent = task.title;
+      taskQuestion.textContent = task.question;
+      taskError.textContent = "";
+      taskForm.innerHTML = "";
+
+      return new Promise((resolve) => {
+        if (task.type === "input") {
+          taskForm.innerHTML = `
+            <input class="task-input" id="taskAnswer" type="text" inputmode="numeric" autocomplete="off" placeholder="请输入 8 位数字">
+            <p class="task-hint">${task.hint}</p>
+            <button class="modal-close" id="submitTask" type="button">验证答案</button>
+          `;
+          const input = taskForm.querySelector("#taskAnswer");
+          const submit = taskForm.querySelector("#submitTask");
+          const validate = () => {
+            if (input.value.trim() === task.answer) {
+              closeModal(taskModal);
+              resolve(true);
+            } else {
+              taskError.textContent = task.error || "答案还差一点点，再想想。";
+            }
+          };
+          submit.addEventListener("click", validate);
+          input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") validate();
+          });
+          window.setTimeout(() => input.focus(), 260);
+        } else {
+          taskForm.innerHTML = `
+            <div class="choice-row">
+              <button class="choice-button" data-answer="同意" type="button">同意</button>
+              <button class="choice-button" data-answer="不同意" type="button">不同意</button>
+            </div>
+          `;
+          taskForm.querySelectorAll(".choice-button").forEach((choice) => {
+            choice.addEventListener("click", () => {
+              if (choice.dataset.answer === task.answer) {
+                closeModal(taskModal);
+                resolve(true);
+              } else {
+                taskError.textContent = "这个答案不可以哦，要选同意才可以继续。";
+              }
+            });
+          });
+        }
+
+        openModal(taskModal);
+      });
+    }
+
+    function resetDrawState() {
+      drawnPrizeIds = [];
+      currentRotation = 0;
+      wheel.style.transform = "rotate(0deg)";
+      saveDrawnPrizeIds();
+      updatePrizeStatus();
+      result.innerHTML = "<strong>今日限定奖池</strong><span>每次抽奖前都要先完成一个小任务，答对后才能转动转盘。</span>";
+      updateButtonState();
+    }
+
+    updatePrizeStatus();
+    updateButtonState();
+
+    button.addEventListener("click", async () => {
+      const pool = availablePrizes();
+      if (spinning || pool.length === 0) return;
+
+      const pickedPrize = pool[Math.floor(Math.random() * pool.length)];
+      button.disabled = true;
+      await askTask(pickedPrize.task);
+
+      spinning = true;
+      button.disabled = true;
+      button.innerHTML = "好运<br>抵达";
+      updatePrizeStatus();
+      result.innerHTML = "<strong>正在抽取</strong><span>生日惊喜正在路上，请稍等一下。</span>";
+
+      const extraTurns = 5 + Math.floor(Math.random() * 3);
+      const desiredModulo = (360 - pickedPrize.center) % 360;
+      const currentModulo = ((currentRotation % 360) + 360) % 360;
+      const deltaToPrize = (desiredModulo - currentModulo + 360) % 360;
+      const finalRotation = extraTurns * 360 + deltaToPrize;
+
+      currentRotation += finalRotation;
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+      window.setTimeout(() => {
+        drawnPrizeIds.push(pickedPrize.id);
+        saveDrawnPrizeIds();
+        updatePrizeStatus(pickedPrize.id);
+        result.innerHTML = `<strong>${pickedPrize.label}</strong><span>已抽中对应等级，奖品内容请查看弹窗。</span>`;
+        showPrizeModal(pickedPrize);
+        spinning = false;
+        updateButtonState();
+      }, 4500);
+    });
+
+    modalClose.addEventListener("click", () => closeModal(prizeModal));
+    prizeModal.addEventListener("click", (event) => {
+      if (event.target === prizeModal) closeModal(prizeModal);
+    });
+
+    openReset.addEventListener("click", () => {
+      resetError.textContent = "";
+      adminPasswordInput.value = "";
+      openModal(resetModal);
+      window.setTimeout(() => adminPasswordInput.focus(), 260);
+    });
+
+    cancelReset.addEventListener("click", () => closeModal(resetModal));
+    confirmReset.addEventListener("click", () => {
+      if (adminPasswordInput.value.trim() !== adminPassword) {
+        resetError.textContent = "管理员密码不正确。";
+        return;
+      }
+
+      resetDrawState();
+      closeModal(resetModal);
+    });
+    adminPasswordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") confirmReset.click();
+    });
+    resetModal.addEventListener("click", (event) => {
+      if (event.target === resetModal) closeModal(resetModal);
+    });
+  </script>
+</body>
+</html>
